@@ -36,7 +36,18 @@ function renderMenu() {
 			</div>
 		`
 	})
+
 	mainElement.innerHTML += cardsHTML
+	
+	const addToCart = document.querySelectorAll('.card-add-button')
+	
+	addToCart.forEach((element, index) => {
+		element.addEventListener('click', () => {handleClick(wholeMenu[index].price)})
+	})
+}
+
+function handleClick(price) {
+	console.log(price)
 }
 
 function formatPrice(number) {
