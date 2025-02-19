@@ -91,6 +91,26 @@ main {
 /* START CART */
 
 .div-cart {
-  background-color: orange;
+  background-color: lightcyan;
   width: 100%;
+}
+
+.div-cart p:nth-child(1) {
+  font-size: 8cqi;
+  color: var(--Red);
+  font-weight: 700;
+  padding: 9cqi 0 0 6cqi;
+}
+
+.div-cart img {
+  width: 45cqi;
+  justify-self: center;
+  margin-top: 15cqi;
+}
+
+.div-cart p:nth-child(3) {
+  justify-self: center;
+  font-weight: 600;
+  color: var(--Rose-500);
+  padding: 8cqi 0 15cqi 0;
 }
