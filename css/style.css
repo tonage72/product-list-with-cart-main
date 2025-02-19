@@ -87,3 +87,10 @@ main {
 }
 
 /* END CARD */
+
+/* START CART */
+
+.div-cart {
+  background-color: orange;
+  width: 100%;
+}

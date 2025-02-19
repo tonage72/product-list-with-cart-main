@@ -37,17 +37,26 @@ function renderMenu() {
 		`
 	})
 
+	cartDiv = `
+		<div class="div-cart">
+			<p>Your Cart (X)</p>
+			<img src="./assets/images/illustration-empty-cart.svg" alt="" />
+			<p>Your added items will appear here
+		</div>
+	`
+
 	mainElement.innerHTML += cardsHTML
-	
+	mainElement.innerHTML += cartDiv
+
 	const addToCart = document.querySelectorAll('.card-add-button')
 	
 	addToCart.forEach((element, index) => {
-		element.addEventListener('click', () => {handleClick(wholeMenu[index].price)})
+		element.addEventListener('click', () => {handleClick(wholeMenu[index])})
 	})
 }
 
-function handleClick(price) {
-	console.log(price)
+function handleClick(Clickeditem) {
+	console.log(`Category: ${Clickeditem.category}, Name: ${Clickeditem.name}, Price: ${Clickeditem.price}`)
 }
 
 function formatPrice(number) {
