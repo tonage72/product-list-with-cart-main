@@ -114,3 +114,10 @@ main {
   color: var(--Rose-500);
   padding: 8cqi 0 15cqi 0;
 }
+
+.selected-item {
+  img {
+    width: 10cqi;
+    margin-top: 0;
+  }
+}

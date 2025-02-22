@@ -56,10 +56,18 @@ loadJSON().then(() => {
 })
 
 function handleClick(clickedItem) {
-	document.querySelector('.img-empty-card').remove()
-	document.querySelector('.p-added-items-note').remove()
+	if(document.querySelector('.img-empty-card')) {
+		document.querySelector('.img-empty-card').remove()
+		document.querySelector('.p-added-items-note').remove()
+	}
+
 	selectedItems.push(clickedItem)
-	let selectedItemsHTML = `<div>SOMETHING ADDED</div>`
+	let selectedItemsHTML = `
+		<div class="selected-item">
+			${clickedItem.name}<br>
+			${clickedItem.price}<br>
+			<img src="../assets/images/icon-remove-item.svg" alt="Remove item"/>
+		</div>`
 	document.querySelector('.div-selected-items').innerHTML += selectedItemsHTML
 }
 
