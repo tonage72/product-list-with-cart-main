@@ -1,6 +1,7 @@
 const mainElement = document.querySelector('main')
 
 let wholeMenu = []
+let selectedItems = []
 
 async function loadJSON() {
   try {
@@ -13,11 +14,8 @@ async function loadJSON() {
 }
 
 loadJSON().then(() => {
-  renderMenu()
-})
-
-function renderMenu() {
-	let cardsHTML = ''
+	/* Render menu */
+  let cardsHTML = ''
 	wholeMenu.forEach(item => {
 		cardsHTML += `
 			<div class="card">
@@ -36,27 +34,33 @@ function renderMenu() {
 			</div>
 		`
 	})
-
-	cartDiv = `
-		<div class="div-cart">
-			<p>Your Cart (X)</p>
-			<img src="./assets/images/illustration-empty-cart.svg" alt="" />
-			<p>Your added items will appear here
-		</div>
-	`
-
-	mainElement.innerHTML += cardsHTML
-	mainElement.innerHTML += cartDiv
-
-	const addToCart = document.querySelectorAll('.card-add-button')
 	
-	addToCart.forEach((element, index) => {
-		element.addEventListener('click', () => {handleClick(wholeMenu[index])})
-	})
-}
+	mainElement.innerHTML += cardsHTML
+	
+	/* Render cart */
+	let cartDiv = `
+			<div class="div-cart">
+				<p>Your Cart (X)</p>
+				<img src="./assets/images/illustration-empty-cart.svg" alt="" class="img-empty-card"/>
+				<div class="div-selected-items"></div>
+				<p class="p-added-items-note">Your added items will appear here</p>
+			</div>
+		`
+		mainElement.innerHTML += cartDiv
 
-function handleClick(Clickeditem) {
-	console.log(`Category: ${Clickeditem.category}, Name: ${Clickeditem.name}, Price: ${Clickeditem.price}`)
+	/* Add listeners to all Add buttons */
+	const addToCart = document.querySelectorAll('.card-add-button')
+
+	addToCart.forEach((element, index) => {
+		element.addEventListener('click', () => handleClick(wholeMenu[index]))})
+})
+
+function handleClick(clickedItem) {
+	document.querySelector('.img-empty-card').remove()
+	document.querySelector('.p-added-items-note').remove()
+	selectedItems.push(clickedItem)
+	let selectedItemsHTML = `<div>SOMETHING ADDED</div>`
+	document.querySelector('.div-selected-items').innerHTML += selectedItemsHTML
 }
 
 function formatPrice(number) {
