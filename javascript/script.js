@@ -1,4 +1,5 @@
-const mainElement = document.querySelector('main')
+const menuListEl = document.querySelector('.menu-list')
+const cartEl = document.querySelector('.cart')
 
 let wholeMenu = []
 let selectedItems = []
@@ -15,11 +16,10 @@ async function loadJSON() {
 
 loadJSON().then(() => {
 	/* Render menu */
-  let cardsHTML = ''
 	wholeMenu.forEach(item => {
-		item.amount = 0
-		cardsHTML += `
-			<div class="card">
+		const card = document.createElement('div')
+		card.classList.add('card')
+		card.innerHTML =`
 					<img
 						src="${item.image.mobile}"
 						alt="${item.image.mobile}"
@@ -32,47 +32,35 @@ loadJSON().then(() => {
 					<p class="card-title">${item.category}</p>
 					<p class="card-description">${item.name}</p>
 					<p class="card-price">${formatPrice(item.price)}</p>
-			</div>
 		`
+		menuListEl.appendChild(card)
 	})
 	
-	mainElement.innerHTML += cardsHTML
-	
-	/* Render cart */
-	let cartDiv = `
-			<div class="div-cart">
-				<p>Your Cart (X)</p>
-				<img src="./assets/images/illustration-empty-cart.svg" alt="" class="img-empty-card"/>
-				<div class="div-selected-items"></div>
-				<p class="p-added-items-note">Your added items will appear here</p>
-			</div>
-		`
-		mainElement.innerHTML += cartDiv
-
 	/* Add listeners to all Add buttons */
 	const addToCart = document.querySelectorAll('.card-add-button')
-
 	addToCart.forEach((element, index) => {
 		element.addEventListener('click', () => handleClick(wholeMenu[index]))})
 })
 
 function handleClick(clickedItem) {
+
+	console.log(clickedItem.index)
+
 	if(document.querySelector('.img-empty-card')) {
 		document.querySelector('.img-empty-card').remove()
 		document.querySelector('.p-added-items-note').remove()
 	}
 
-	selectedItems.push(clickedItem)
-	clickedItem.amount += 1
-	let selectedItemsHTML = `
-		<div class="selected-item">
+	const addedItem = document.createElement('div')
+	addedItem.classList.add('added-item')
+	addedItem.innerHTML = `
+		<div class="added-item">
 			${clickedItem.name}<br>
-			<p class="selected-amount">${clickedItem.amount}x</p>
+			<p class="added-count">Xx</p>
 			${clickedItem.price}<br>
-			<img src="../assets/images/icon-remove-item.svg" alt="Remove item"/>
+			<img src="../assets/images/icon-remove-item.svg" alt="Remove item" class="remove-item"/>
 		</div>`
-	DivSelectedAmount = document.querySelector('.selected-amount')
-	document.querySelector('.div-selected-items').innerHTML += selectedItemsHTML
+	cartEl.appendChild(addedItem)
 }
 
 function formatPrice(number) {
