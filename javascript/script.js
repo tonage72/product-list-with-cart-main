@@ -17,6 +17,7 @@ loadJSON().then(() => {
 	/* Render menu */
   let cardsHTML = ''
 	wholeMenu.forEach(item => {
+		item.amount = 0
 		cardsHTML += `
 			<div class="card">
 					<img
@@ -62,12 +63,15 @@ function handleClick(clickedItem) {
 	}
 
 	selectedItems.push(clickedItem)
+	clickedItem.amount += 1
 	let selectedItemsHTML = `
 		<div class="selected-item">
 			${clickedItem.name}<br>
+			<p class="selected-amount">${clickedItem.amount}x</p>
 			${clickedItem.price}<br>
 			<img src="../assets/images/icon-remove-item.svg" alt="Remove item"/>
 		</div>`
+	DivSelectedAmount = document.querySelector('.selected-amount')
 	document.querySelector('.div-selected-items').innerHTML += selectedItemsHTML
 }
 
