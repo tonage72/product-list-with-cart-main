@@ -30,36 +30,42 @@ loadJSON().then(() => {
 						<p>Add to Cart</p>
 					</button>
 					<p class="card-title">${item.category}</p>
-					<p class="card-description">${item.name}</p>
+					<p class="card-name">${item.name}</p>
 					<p class="card-price">${formatPrice(item.price)}</p>
 		`
 		menuListEl.appendChild(card)
 	})
 	
 	/* Add listeners to all Add buttons */
-	const addToCart = document.querySelectorAll('.card-add-button')
-	addToCart.forEach((element, index) => {
-		element.addEventListener('click', () => handleClick(wholeMenu[index]))})
+	const addCartButtons = document.querySelectorAll('.card-add-button')
+	addCartButtons.forEach(button => {
+		button.addEventListener('click', event => {
+			const addedCard = event.target.closest('.card')
+			addToCart(addedCard)
+		})
+	})
+
+
 })
 
-function handleClick(clickedItem) {
+function addToCart(addedCard) {
 
-	console.log(clickedItem.index)
+	const addedCardName = addedCard.querySelector('.card-name').textContent
+	const addedCardPrice = addedCard.querySelector('.card-price').textContent
 
 	if(document.querySelector('.img-empty-card')) {
 		document.querySelector('.img-empty-card').remove()
 		document.querySelector('.p-added-items-note').remove()
 	}
-
+	
 	const addedItem = document.createElement('div')
 	addedItem.classList.add('added-item')
 	addedItem.innerHTML = `
-		<div class="added-item">
-			${clickedItem.name}<br>
-			<p class="added-count">Xx</p>
-			${clickedItem.price}<br>
-			<img src="../assets/images/icon-remove-item.svg" alt="Remove item" class="remove-item"/>
-		</div>`
+		${addedCardName}<br>
+		<p class="added-count">Xx</p>
+		${addedCardPrice}<br>
+		<img src="../assets/images/icon-remove-item.svg" alt="Remove item" class="remove-item"/>
+	`
 	cartEl.appendChild(addedItem)
 }
 
