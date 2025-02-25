@@ -45,7 +45,7 @@ main {
   grid-template-rows: auto auto auto auto auto;
 }
 
-.card-add-button {
+.button-add-cart {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,11 +61,47 @@ main {
   margin-bottom: -4cqi;
 }
 
-.card-add-button img {
+.button-add-cart img {
   width: 7.5cqi;
 }
 
-.card-add-button p {
+.button-add-cart p {
+  font-size: 4.5cqi;
+  font-weight: 600;
+}
+
+.button-added-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  column-gap: 2cqi;
+  width: 55cqi;
+  line-height: 15cqi;
+  border-radius: 50cqi;
+  justify-self: center;
+  border: 1px solid red;
+  background-color: red;
+  top: -7.8cqi;
+  margin-bottom: -4cqi;
+}
+
+.button-added-cart figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6cqi;
+  height: 6cqi;
+  padding: 1cqi;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.button-added-cart figure img {
+  width: 3cqi;
+}
+
+.button-added-cart p {
   font-size: 4.5cqi;
   font-weight: 600;
 }

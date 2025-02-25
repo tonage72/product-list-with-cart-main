@@ -25,7 +25,7 @@ loadJSON().then(() => {
 						alt="${item.image.mobile}"
 						class="card-image"
 					/>
-					<button class="card-add-button">
+					<button class="button-add-cart">
 						<img src="assets/images/icon-add-to-cart.svg" alt="" />
 						<p>Add to Cart</p>
 					</button>
@@ -37,11 +37,23 @@ loadJSON().then(() => {
 	})
 	
 	/* Add listeners to all Add buttons */
-	const addCartButtons = document.querySelectorAll('.card-add-button')
-	addCartButtons.forEach(button => {
-		button.addEventListener('click', event => {
-			const addedCard = event.target.closest('.card')
-			addToCart(addedCard)
+	const addCartButton = document.querySelectorAll('.button-add-cart')
+	addCartButton.forEach(button => {button.addEventListener('click', event => {
+		const addedCard = event.target.closest('.card')
+		button.classList.remove('button-add-cart')
+		button.classList.add('button-added-cart')
+		const addedPlusMinusHTML = `
+			<figure>
+				<img src="assets/images/icon-decrement-quantity.svg" alt="" class="decrement-button" />
+			</figure>
+				<p class="total-added-card">X</p>
+			<figure>	
+				<img src="assets/images/icon-increment-quantity.svg" alt="" class="increment-button" />
+			</figure>
+		`
+		button.style.backgroundColor = "red"
+		button.innerHTML = addedPlusMinusHTML
+		addToCart(addedCard)
 		})
 	})
 
@@ -68,7 +80,6 @@ function addToCart(addedCard) {
 	`
 	cartEl.appendChild(addedItem)
 }
-
 function formatPrice(number) {
 	return new Intl.NumberFormat('en-US', {
 		style: 'currency',
