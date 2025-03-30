@@ -25,6 +25,8 @@ fetch('./data.json')
 				</div>
 			`
 		})
+	})
+	.then(() => {
 		const addToCartBtns = document.querySelectorAll('.wrap-add-to-cart')
 		const wrapAddedToCart = document.querySelectorAll('.wrap-added-to-cart')
 		addToCartBtns.forEach((btn, index) => {
@@ -33,5 +35,5 @@ fetch('./data.json')
 				addToCartBtns[index].style.display = 'none'
 				wrapAddedToCart[index].style.display = 'flex'
 			})
+		})
 	})
-})
