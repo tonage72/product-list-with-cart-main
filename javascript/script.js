@@ -21,7 +21,11 @@ function addCards(datajson) {
 					<h1>${index}</h1>
 			</div>
 		`
-	});
+	})
+	const addToCartBtns = document.querySelectorAll('.btn-add-to-cart')
+	addToCartBtns.forEach((btn, index) => {
+		btn.style.backgroundColor = 'red'
+	})
 }
 
 getItemData()
