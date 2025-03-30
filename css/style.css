@@ -1,0 +1,31 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+img {
+	width: 100%;
+	display: block;
+}
+
+button {
+	display: block;
+}
+
+body {
+	width: 100%;
+}
+
+main {
+	width: 90%;
+	justify-self: center;
+}
+
+.card {
+	width: 100%;
+}
+
+.btn-add-to-cart {
+	justify-self: center;
+}
