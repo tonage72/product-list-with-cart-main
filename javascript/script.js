@@ -10,7 +10,14 @@ fetch('./data.json')
 			main.innerHTML += `
 				<div class="card">
 						<img src="${menuItem.image.mobile}" alt="">
-						<button class="btn-add-to-cart">Add to Cart</button>
+						<div class="wrap-add-to-cart">
+							<button>Add to Cart</button>
+						</div>
+						<div class="wrap-added-to-cart">
+							<button class="minus-button">- </button>
+							<span class="total-added-cart">1</span>
+							<button class="plus-button"> +</button>
+						</div>
 						<h2>${menuItem.category}</h2>
 						<h2>${menuItem.name}</h2>
 						<p>${menuItem.price}</p>
@@ -18,8 +25,13 @@ fetch('./data.json')
 				</div>
 			`
 		})
-		const addToCartBtns = document.querySelectorAll('.btn-add-to-cart')
+		const addToCartBtns = document.querySelectorAll('.wrap-add-to-cart')
+		const wrapAddedToCart = document.querySelectorAll('.wrap-added-to-cart')
 		addToCartBtns.forEach((btn, index) => {
-			btn.style.backgroundColor = 'red'
+			btn.addEventListener('click', () => {
+				cart.style.display = 'block'
+				addToCartBtns[index].style.display = 'none'
+				wrapAddedToCart[index].style.display = 'flex'
+			})
 	})
 })
