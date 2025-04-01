@@ -67,22 +67,18 @@ function addItemToCart(newItem) {
 	totalChargePrice += newItem.price
 	totalCharge.innerHTML = totalChargePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
-	// Check if the item already exists in the cartItemsArray
-	cartItemsArray.forEach((item) => {
-		if (item.name === newItem.name) {
-			newItem.quantity += 1
-		}
-	})
-
-	// If the item was not found in the cartItemsArray, add it as a new entry with quantity 1
+	// Add new item if not in array. Else increment the quantity by 1
 	if (!cartItemsArray.some(item => item.name === newItem.name)) {
 		newItem.quantity += 1
 		cartItemsArray.push(newItem) // Add the new item to the cart items array
+	} else {
+		newItem.quantity += 1
 	}
 
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
 
-	cartItemsArray.forEach((item, index) => {
+	cartItemsArray.forEach((item) => {
+		console.log(item)
 		cartItems.innerHTML += `
 	<div class='item-in-cart'>
 		${item.name}
@@ -91,5 +87,4 @@ function addItemToCart(newItem) {
 	</div>
 	`
 	})
-	
 }
