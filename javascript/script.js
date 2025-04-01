@@ -64,6 +64,11 @@ function addItemToCart(newItem) {
 	totalChargePrice += newItem.price
 	totalCharge.innerHTML = totalChargePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
+	newItem.quantity = 1
+
+	// Check if the item already exists in the cartItemsArray
+	
+
 	cartItemsArray.push(newItem) // Add the new item to the cart items array
 
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
