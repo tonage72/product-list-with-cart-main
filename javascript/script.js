@@ -51,7 +51,7 @@ function renderMenu(datajson) {
 
 	minusButtons.forEach((btn, index) => {
 		btn.addEventListener('click', () => {
-			console.log(`Minus button pushed. Index: ${index}`)
+			removeItemFromCart(datajson[index])
 		})
 	})
 
@@ -78,7 +78,27 @@ function addItemToCart(newItem) {
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
 
 	cartItemsArray.forEach((item) => {
-		console.log(item)
+		cartItems.innerHTML += `
+	<div class='item-in-cart'>
+		${item.name}
+		${item.price}
+		${item.quantity}
+	</div>
+	`
+	})
+}
+
+function removeItemFromCart(itemToRemove) {
+	const index = cartItemsArray.findIndex(item => item.name === itemToRemove.name)
+	if (cartItemsArray[index].quantity === 1) {
+		cartItemsArray.splice(index, 1) // Remove the item from the cart items array if quantity is 1
+	} else {
+		cartItemsArray[index].quantity -= 1 // Decrement the quantity by 1
+	}
+
+	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
+
+	cartItemsArray.forEach((item) => {
 		cartItems.innerHTML += `
 	<div class='item-in-cart'>
 		${item.name}
