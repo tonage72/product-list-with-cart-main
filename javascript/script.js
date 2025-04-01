@@ -3,7 +3,7 @@ const cart = document.querySelector('.cart')
 const cartItems = document.querySelector('.cart-items')
 const totalCharge = document.querySelector('.total-charge')
 let totalChargePrice = 0
-let cartItemsCount = []
+let cartItemsArray = []
 
 cart.style.display = 'none'
 
@@ -60,13 +60,21 @@ function renderMenu(datajson) {
 }
 
 function addItemToCart(newItem) {
+	// Add item price to total charge and update the display
 	totalChargePrice += newItem.price
 	totalCharge.innerHTML = totalChargePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-	
-	cartItems.innerHTML += `
+
+	cartItemsArray.push(newItem) // Add the new item to the cart items array
+
+	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
+
+	cartItemsArray.forEach((newItem, index) => {
+		cartItems.innerHTML += `
 	<div class='item-in-cart'>
 		${newItem.name}
 		${newItem.price}
 	</div>
 	`
+	})
+	
 }
