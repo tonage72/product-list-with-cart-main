@@ -9,11 +9,14 @@ cart.style.display = 'none'
 
 fetch('./data.json')
 	.then((data) => data.json())
-	.then((datajson) => {renderMenu(datajson)})
+	.then((datajson) => {
+		renderMenu(datajson)
+	})
 	.catch(() => {main.innerHTML = 'Error fetching data.'})
 
 function renderMenu(datajson) {
 	datajson.forEach((menuItem, index) => {
+		datajson[index].quantity = 0 // Initialize quantity for each item to 0, this will help in tracking the number of items in the cart
 		main.innerHTML += `
 			<div class="card">
 					<img src="${menuItem.image.mobile}" alt="">
@@ -64,20 +67,27 @@ function addItemToCart(newItem) {
 	totalChargePrice += newItem.price
 	totalCharge.innerHTML = totalChargePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
-	newItem.quantity = 1
-
 	// Check if the item already exists in the cartItemsArray
-	
+	cartItemsArray.forEach((item) => {
+		if (item.name === newItem.name) {
+			newItem.quantity += 1
+		}
+	})
 
-	cartItemsArray.push(newItem) // Add the new item to the cart items array
+	// If the item was not found in the cartItemsArray, add it as a new entry with quantity 1
+	if (!cartItemsArray.some(item => item.name === newItem.name)) {
+		newItem.quantity += 1
+		cartItemsArray.push(newItem) // Add the new item to the cart items array
+	}
 
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
 
-	cartItemsArray.forEach((newItem, index) => {
+	cartItemsArray.forEach((item, index) => {
 		cartItems.innerHTML += `
 	<div class='item-in-cart'>
-		${newItem.name}
-		${newItem.price}
+		${item.name}
+		${item.price}
+		${item.quantity}
 	</div>
 	`
 	})
