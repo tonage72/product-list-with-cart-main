@@ -25,7 +25,7 @@ function renderMenu(datajson) {
 					</div>
 					<div class="wrap-added-to-cart">
 						<button class="minus-button">- </button>
-						<span class="total-added-cart">1</span>
+						<span class="total-added-card">1</span>
 						<button class="plus-button"> +</button>
 					</div>
 					<h2>${menuItem.category}</h2>
@@ -51,19 +51,20 @@ function renderMenu(datajson) {
 
 	minusButtons.forEach((btn, index) => {
 		btn.addEventListener('click', () => {
-			removeItemFromCart(datajson[index])
+			removeItemFromCart(datajson[index], index)
 		})
 	})
 
 	plusButtons.forEach((btn, index) => {
 		btn.addEventListener('click', () => {
-			addItemToCart(datajson[index])
+			addItemToCart(datajson[index], index)
 		})
 	})
 }
 
-function addItemToCart(newItem) {
+function addItemToCart(newItem, index) {
 	// Add item price to total charge and update the display
+	const totalAddedCard = document.querySelectorAll('.total-added-card')
 	totalChargePrice += newItem.price
 	totalCharge.innerHTML = totalChargePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
@@ -73,6 +74,7 @@ function addItemToCart(newItem) {
 		cartItemsArray.push(newItem) // Add the new item to the cart items array
 	} else {
 		newItem.quantity += 1
+		totalAddedCard[index].innerHTML = `${newItem.quantity}` // Update the quantity in the display
 	}
 
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
@@ -88,12 +90,15 @@ function addItemToCart(newItem) {
 	})
 }
 
-function removeItemFromCart(itemToRemove) {
+function removeItemFromCart(itemToRemove, cardIndex) {
+	const totalAddedCard = document.querySelectorAll('.total-added-card')
 	const index = cartItemsArray.findIndex(item => item.name === itemToRemove.name)
 	if (cartItemsArray[index].quantity === 1) {
 		cartItemsArray.splice(index, 1) // Remove the item from the cart items array if quantity is 1
+		totalAddedCard[cardIndex].innerHTML = `0` // Update the quantity in the display
 	} else {
 		cartItemsArray[index].quantity -= 1 // Decrement the quantity by 1
+		totalAddedCard[cardIndex].innerHTML = `${itemToRemove.quantity}` // Update the quantity in the display
 	}
 
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
