@@ -93,9 +93,15 @@ function addItemToCart(newItem, index) {
 function removeItemFromCart(itemToRemove, cardIndex) {
 	const totalAddedCard = document.querySelectorAll('.total-added-card')
 	const index = cartItemsArray.findIndex(item => item.name === itemToRemove.name)
+	const addToCartBtns = document.querySelectorAll('.wrap-add-to-cart')
+	const wrapAddedToCart = document.querySelectorAll('.wrap-added-to-cart')
+	
 	if (cartItemsArray[index].quantity === 1) {
+		addToCartBtns[cardIndex].style.display = 'flex'
+		wrapAddedToCart[cardIndex].style.display = 'none'
 		cartItemsArray.splice(index, 1) // Remove the item from the cart items array if quantity is 1
 		totalAddedCard[cardIndex].innerHTML = `0` // Update the quantity in the display
+
 	} else {
 		cartItemsArray[index].quantity -= 1 // Decrement the quantity by 1
 		totalAddedCard[cardIndex].innerHTML = `${itemToRemove.quantity}` // Update the quantity in the display
