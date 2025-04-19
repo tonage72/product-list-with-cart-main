@@ -84,7 +84,10 @@ function removeItemFromCart(itemToRemove, cardIndex) {
 	const index = cartItemsArray.findIndex(item => item.name === itemToRemove.name)
 	const addToCartBtns = document.querySelectorAll('.wrap-add-to-cart')
 	const wrapAddedToCart = document.querySelectorAll('.wrap-added-to-cart')
-	
+
+	totalChargePrice -= itemToRemove.price
+	totalCharge.innerHTML = totalChargePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+
 	if (cartItemsArray[index].quantity === 1) {
 		addToCartBtns[cardIndex].style.display = 'flex'
 		wrapAddedToCart[cardIndex].style.display = 'none'
