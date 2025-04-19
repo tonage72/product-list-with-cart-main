@@ -31,7 +31,6 @@ function renderMenu(datajson) {
 					<h2>${menuItem.category}</h2>
 					<h2>${menuItem.name}</h2>
 					<p>${menuItem.price}</p>
-					<h1>${index}</h1>
 			</div>
 		`
 	})
@@ -77,17 +76,7 @@ function addItemToCart(newItem, index) {
 		totalAddedCard[index].innerHTML = `${newItem.quantity}` // Update the quantity in the display
 	}
 
-	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
-
-	cartItemsArray.forEach((item) => {
-		cartItems.innerHTML += `
-	<div class='item-in-cart'>
-		${item.name}
-		${item.price}
-		${item.quantity}
-	</div>
-	`
-	})
+	renderCart() // Re-render the cart items display
 }
 
 function removeItemFromCart(itemToRemove, cardIndex) {
@@ -107,6 +96,10 @@ function removeItemFromCart(itemToRemove, cardIndex) {
 		totalAddedCard[cardIndex].innerHTML = `${itemToRemove.quantity}` // Update the quantity in the display
 	}
 
+	renderCart() // Re-render the cart items display
+}
+
+function renderCart() {
 	cartItems.innerHTML = '' // Clear the cart items display before re-rendering
 
 	cartItemsArray.forEach((item) => {
